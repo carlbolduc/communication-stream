@@ -1,0 +1,55 @@
+  
+<div id="page">
+
+<script type="text/javascript">
+    
+    
+    
+$(document).ready(function() {
+    $('.message').fadeIn("slow");
+    var url = window.location.pathname;
+    var urlParts = url.split('/');
+    var ref = urlParts[urlParts.length - 1];
+    $("#newContent").click(function() {
+        $("#allContent").fadeOut("slow");
+        $("#newContent").fadeOut("slow", function() {
+            $("#loading").fadeIn("fast");
+        });
+        var n = $("div.message").length;
+        $.getJSON('/getNextResults' + ref + "|" + n, function(response) {
+            $('div#content').append(response.content).find('.message').fadeIn("slow");
+            $("#loading").fadeOut("slow");
+            $("#newContent").fadeIn("slow");
+            $("#allContent").fadeIn("slow");
+        })
+    })
+    $("#allContent").click(function() {
+        $("#newContent").fadeOut("slow");
+        $("#allContent").fadeOut("slow", function() {
+            $("#loading").fadeIn("fast");
+        });
+        var n = $("div.message").length;
+        $.getJSON('/getAllResults' + ref + "|" + n, function(response) {
+            $('div#content').append(response.content).find('.message').fadeIn("slow");
+            $("#loading").fadeOut("slow");
+        })
+    })
+});
+
+
+
+</script>
+
+
+  <div id="content">
+
+  [% INCLUDE messages.tt %]
+
+  </div>
+  <div id="anims">
+    <div id="newContent">Load More</div><div id="allContent">Get Everything</div>
+    <div id="loading"><img src="/images/loading.gif" /></div>
+    </div>
+  
+</div>
+

@@ -1,0 +1,13 @@
+    [% FOREACH message IN messages %]
+      <div class="message">
+        <div class="date">[% message.date %]</div>
+        <div class="meta">
+        	<div class="link">[% message.link %]</div>
+        	<div class="time">[% message.timestamp %]</div>
+        	<div class="attachment">[% message.attachment %]</div>
+        </div>
+        <div class="text">
+          [% message.text %]
+        </div>
+      </div>
+    [% END %]
